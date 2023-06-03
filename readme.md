@@ -5,16 +5,16 @@ This code implements the Distance Vector Routing algorithm (Bellman-Ford) for a 
 After initially running, there is an update section where the user can modify or remove edges from the graph. The algorithm then runs again until convergence is reached, printing out the distance tables and routing tables for each router.
 
 ## To Do
-- [ ] Put classes in separate files
 - [ ] Add comments
 - [ ] Add more test cases
 - [ ] Implement split horizon
-- [x] Implement graph adjacency list
-- [x] Create distance table data structure
-- [x] Implement Distance Vector Routing algorithm
+- [x] Put classes in separate files
 - [x] Implement update section
 - [x] Implement routing table
 - [x] Implement convergence check
+- [x] Implement Distance Vector Routing algorithm
+- [x] Create distance table data structure
+- [x] Implement graph adjacency list
 
 ## Usage
 
