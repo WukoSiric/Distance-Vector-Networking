@@ -42,21 +42,24 @@ The code reads input from the standard input. The input format is as follows:
 > UPDATE
 > ```
 3. In the update section, specify the edges to modify or remove. Each line should contain two node names and an integer separated by spaces. Entering a weight of -1 removes an edge, while positive and  0 weights modify the edge weight. Enter `END` to indicate the end of the update list. 
+
 > ```
 > Y Z -1
 > X Z 3
 > END
 > ```
+*Note: The update section is optional. If you do not want to specify updates, you can 
+skip to the end of the input. by entering `END` after `UPDATE` section.*
 4. The code will then print the distance tables and routing tables for each router in the network.
 
 ### Quick Start
 To quickly test the program you can pipe/redirect the input from the included input files. For example, to run the program with the input from `input-update', you could use the following: 
 
 **Bash**
-`py DistanceVectorRouting < input` 
+`py DistanceVectorRouting < input-update` 
 
 **PowerShell**
-`Get-Content input | py DistanceVectorRouting`
+`Get-Content input-update | py DistanceVectorRouting`
 
 
 ## Classes
