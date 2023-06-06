@@ -61,7 +61,7 @@ class Router:
                     if via_node == received_from: 
                         previous_cost = self.distance_table[dest][via_node]
                         cost_to_received_from = self.distance_table[received_from][received_from]
-                        total_cost = cost_to_received_from + self.find_min_cost(received_distance_table, dest)
+                        total_cost = cost_to_received_from + self.find_min_cost(received_distance_table, dest)[0]
                         self.distance_table[dest][received_from] = total_cost
                         if previous_cost != total_cost:
                             self.update_neighbors = True
@@ -71,10 +71,12 @@ class Router:
 
     def find_min_cost(self, distance_table, dest): 
         min_cost = INF
+        next_hop = None
         for node in distance_table[dest]:
             if distance_table[dest][node] < min_cost:
                 min_cost = distance_table[dest][node]
-        return min_cost
+                next_hop = node
+        return (min_cost, next_hop)
     
     def create_routing_table(self):
         for dest in self.distance_table:

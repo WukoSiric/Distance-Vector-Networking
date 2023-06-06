@@ -78,7 +78,7 @@ To quickly test the program you can pipe/redirect the input from the included in
 - `update_self(graph, routers_list)`: Updates the distance table of the router with its own costs to neighbors.
 - `send_updates(neighbors, routers_list)`: Sends updates to neighbors if the router's distance table has changed.
 - `process_received_tables()`: Processes received updates from neighbors to update the router's distance table.
-- `find_min_cost(distance_table, dest)`: Finds the minimum cost to a destination in the given distance table.
+- `find_min_cost(distance_table, dest)`: Finds the minimum cost to a destination, returning cost and next hop.
 - `create_routing_table()`: Creates the routing table for the router based on the distance table.
 - `print_routing_table()`: Prints the routing table for the router.
 - `process_after_update(graph, routers_list)`: Processes updates to the router's distance table after changes in the graph.
