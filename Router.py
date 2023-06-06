@@ -23,10 +23,8 @@ class Router:
         nodes = sorted(self.distance_table.keys())
         header = [' '] + nodes
 
-        # Print table header
         print('\t'.join(header))
 
-        # Print table rows
         for node in nodes:
             row = [node] + [str(self.distance_table[node][n]).replace('inf', 'INF') for n in nodes]
             print('\t'.join(row))
@@ -36,7 +34,6 @@ class Router:
         for neighbor in neighbors:
             self.distance_table[neighbor][neighbor] = graph.adj_list[self._name][neighbor]
 
-        # If not a neighbor, set cost to infinity for all destinations 
         for router in routers_list:
             if router._name not in neighbors and router._name != self._name:
                 for dest in self.distance_table:
@@ -65,9 +62,13 @@ class Router:
                         self.distance_table[dest][received_from] = total_cost
                         if previous_cost != total_cost:
                             self.update_neighbors = True
-
         # Reset updates to process
         self.updates_to_process = []
+
+    def create_routing_table(self):
+        for dest in self.distance_table:
+            min_cost, next_hop = self.find_min_cost(self.distance_table, dest)
+            self.routing_table[dest] = (next_hop, min_cost)
 
     def find_min_cost(self, distance_table, dest): 
         min_cost = INF
@@ -77,16 +78,6 @@ class Router:
                 min_cost = distance_table[dest][node]
                 next_hop = node
         return (min_cost, next_hop)
-    
-    def create_routing_table(self):
-        for dest in self.distance_table:
-            min_cost = INF
-            min_cost_node = INF
-            for node in self.distance_table[dest]:
-                if self.distance_table[dest][node] < min_cost:
-                    min_cost = self.distance_table[dest][node]
-                    min_cost_node = node
-            self.routing_table[dest] = (min_cost_node, min_cost)
 
     def print_routing_table(self):
         self.create_routing_table()
@@ -96,21 +87,12 @@ class Router:
         print()
 
     def process_after_update(self, graph, routers_list): 
-        # Clear all updates
-        self.updates_to_process = []
         original_distance_table = copy.deepcopy(self.distance_table)
+        self.updates_to_process = []
+        self.update_self(graph, routers_list)
 
-        # Get neighbors costs
+        # Update self with routing tables
         neighbors = graph.get_neighbors(self._name)
-        for neighbor in neighbors:
-            self.distance_table[neighbor][neighbor] = graph.adj_list[self._name][neighbor]
-
-        # If not a neighbor, set cost to infinity for all destinations
-        for dest in self.distance_table: 
-            for via_node in self.distance_table[dest]: 
-                if via_node not in neighbors:
-                    self.distance_table[dest][via_node] = INF
-        
         for router in routers_list: 
             if (router._name in neighbors): 
                 for dest in router.routing_table: 
